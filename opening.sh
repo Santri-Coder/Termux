@@ -68,32 +68,30 @@ if [ $? -eq 0 ]; then
     TEXT=$(echo $QUOTE_DATA | grep -oP '(?<="q":")[^"]*')
     AUTHOR=$(echo $QUOTE_DATA | grep -oP '(?<="a":")[^"]*')
     echo -ne "${B}Jarvis:${W} "
-    type_effect "Hello Tuan, ini inspirasi rahasia hari ini..."
+    type_effect "Hello Sir! This motivation for you today.."
     echo -e "\n${Y}\"$TEXT\"${N}"
     echo -e "${W}— ${AUTHOR}${N}"
 else
     echo -ne "${B}Jarvis:${W} "
-    type_effect "Kegagalan hanyalah sistem yang sedang reboot. Bangkit lagi, Tuan."
+    type_effect "Sorry Sir! Jarvis can't connecting to satelite..."
 fi
 echo -e "\n"
 
 # -- MENU TERKUNCI --
-echo -e "${B}Jarvis siap membantu anda tuan muda 🤖${N}"
+echo -e "${B}I'm Jarvis 🤖 please say what do you want?${N}"
 echo -e "${W}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${N}"
-echo -e "${G} [1]${W} Panggil Jarvis"
-echo -e "${G} [2]${W} Sosmed Downloader"
-echo -e "${G} [3]${W} Dukun Online"
-echo -e "${G} [4]${W} Robot Finance"
-echo -e "${G} [5]${W} Exit"
+echo -e "${G} [1]${W} Social Media Downloader"
+echo -e "${G} [2]${W} Knowledge of Javanese"
+echo -e "${G} [3]${W} Database Financial"
+echo -e "${G} [X]${W} Exit"
 echo ""
 read -p " Tentukan pilihanmu, Tuan Muda Azzkury: " opt
 
 case $opt in
-  1) python ~/jarvisv3.py ;;
-  2) python ~/dldsosmed.py ;;
-  3) node ~/javanese.js ;;
-  4) python ~/finance.py ;;
-  5) echo -e "${W} Sistem standby.${N}" ;;
+  1) python ~/dldsosmed.py ;;
+  2) python ~/javanese.js ;;
+  3) node ~/finance.py ;;
+  X) echo -e "${W} Sistem standby.${N}" ;;
   *) echo -e "${R} Protokol tidak dikenal.${N}" ;;
 esac
 
