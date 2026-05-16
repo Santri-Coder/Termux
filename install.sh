@@ -11,7 +11,7 @@ sleep 1
 
 # 1. Memindahkan file pendukung ke folder home secara permanen
 echo -e "${G}[+] Menyalin script ke sistem lokal...${N}"
-cp pembuka.sh ~/pembuka.sh
+cp opening.sh ~/opening.sh
 cp jarvisv3.py ~/jarvisv3.py
 cp dldsosmed.py ~/dldsosmed.py
 cp javanese.js ~/javanese.js
