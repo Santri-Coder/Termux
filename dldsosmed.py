@@ -10,14 +10,12 @@ YLW = "\033[93m" # Kuning
 CYAN = "\033[36m" # Cyan
 RST = "\033[0m"  # Reset
 
-# User Agent Terbaru (April 2026)
+# User Agent Terbaru
 CHROME_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
 DOWNLOAD_DIR = "/storage/emulated/0/Download"
 
 def banner():
     os.system('clear')
-    # Menggunakan struktur ASCII dari yt-mvdownloader.py
-    # Monitor & PC warna Hijau, Sisanya Putih
     print(WHT + "    " + GRN + "▐▓█▀▀▀▀▀▀▀▀▀█▓▌" + WHT + "  " + GRN + "▄▄▄▄▄" + WHT + "      ✧")
     print(WHT + "    " + GRN + "▐▓█" + WHT + "  Tools " + GRN + " █▓▌  " + GRN + "█▄▄▄█" + WHT + "   ╔════════╗")
     print(WHT + "    " + GRN + "▐▓█" + WHT + "Download" + GRN + " █▓▌  " + GRN + "█▄▄▄█" + WHT + "   ║        ║")
@@ -37,36 +35,51 @@ def banner():
 def get_yt(url, mode):
     import yt_dlp
     output_path = f"{DOWNLOAD_DIR}/%(title)s.%(ext)s"
+    
+    # Base options yang mengaktifkan progress bar bawaan yt-dlp secara rapi
+    opts = {
+        'user_agent': CHROME_UA,
+        'outtmpl': output_path,
+        'noprogress': False,  # Memastikan progress bar tidak disembunyikan
+        'quiet': False,       # Mengaktifkan output log download ke terminal
+    }
+    
     if mode == 'music':
-        opts = {
+        opts.update({
             'format': 'bestaudio/best',
-            'user_agent': CHROME_UA,
             'postprocessors': [{'key': 'FFmpegExtractAudio','preferredcodec': 'mp3','preferredquality': '192'}],
-            'outtmpl': output_path,
-        }
+        })
     else:
-        opts = {
+        opts.update({
             'format': 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best',
-            'user_agent': CHROME_UA,
-            'outtmpl': output_path,
-        }
+        })
+        
+    print(f"\n{CYAN}[+] Menghubungkan ke satelit YouTube...{RST}")
     with yt_dlp.YoutubeDL(opts) as ydl:
         ydl.download([url])
 
 def get_social(url, platform):
+    import yt_dlp
     output_path = f"{DOWNLOAD_DIR}/%(title)s.%(ext)s"
     print(f"\n{CYAN}[+] Memproses {platform} Original HD...{RST}")
-    command = [
-        'yt-dlp', '--user-agent', CHROME_UA,
-        '-f', 'bestvideo+bestaudio/best',
-        '--merge-output-format', 'mp4',
-        '-o', output_path, '--no-playlist', url
-    ]
+    
+    # Menggunakan yt_dlp object langsung via Python agar animasi progress bar muncul alami
+    opts = {
+        'user_agent': CHROME_UA,
+        'format': 'bestvideo+bestaudio/best',
+        'merge_output_format': 'mp4',
+        'outtmpl': output_path,
+        'no_playlist': True,
+        'noprogress': False,
+        'quiet': False
+    }
+    
     try:
-        subprocess.run(command, check=True)
+        with yt_dlp.YoutubeDL(opts) as ydl:
+            ydl.download([url])
         print(f"\n{GRN}[SUCCESS]{RST} {platform} berhasil mendarat di folder Download!")
-    except:
-        print(f"\n[!] Gagal eksekusi, {platform} mungkin memblokir akses.")
+    except Exception as e:
+        print(f"\n[!] Gagal eksekusi, {platform} mungkin memblokir akses atau link tidak valid.")
 
 def get_twitter_mass(url):
     print(f"\n{CYAN}[+] Memindai semua video di tweet (Mass Download)...{RST}")
@@ -81,18 +94,44 @@ def get_twitter_mass(url):
                 for index, vid in enumerate(videos, start=1):
                     video_url = vid['url']
                     output_file = f"{DOWNLOAD_DIR}/X_{tweet_id}_part{index}.mp4"
+                    
+                    # Dapatkan ukuran file untuk membuat custom progress bar manual ala Termux
+                    response_file = requests.get(video_url, stream=True)
+                    total_size = int(response_file.headers.get('content-length', 0))
+                    
                     print(f"{CYAN}[+] Mendownload video ke-{index}...{RST}")
-                    with requests.get(video_url, stream=True) as r:
-                        r.raise_for_status()
-                        with open(output_file, 'wb') as f:
-                            for chunk in r.iter_content(chunk_size=8192):
-                                f.write(chunk)
+                    
+                    # Logika download dengan progress bar teks dinamis jika content-length tersedia
+                    with open(output_file, 'wb') as f:
+                        if total_size == 0:
+                            f.write(response_file.content)
+                        else:
+                            downloaded = 0
+                            start_time = time.time()
+                            for chunk in response_file.iter_content(chunk_size=8192):
+                                if chunk:
+                                    f.write(chunk)
+                                    downloaded += len(chunk)
+                                    
+                                    # Kalkulasi persentase dan kecepatan
+                                    done = int(50 * downloaded / total_size)
+                                    percent = (downloaded / total_size) * 100
+                                    elapsed = time.time() - start_time
+                                    speed = downloaded / elapsed if elapsed > 0 else 0
+                                    
+                                    # Cetak progress bar manual bergaya terminal bawaan
+                                    # Format: [██████████████████▒▒▒▒▒▒▒] 65.2% (512.4 kB/s)
+                                    sys.stdout.write(f"\r{WHT}[{GRN}{'█' * done}{WHT}{'░' * (50 - done)}] {GRN}{percent:.1f}%{WHT} ({speed/1024:.1f} kB/s){RST}")
+                                    sys.stdout.flush()
+                    print() # Pindah baris setelah part selesai
                 print(f"\n{GRN}[SUCCESS]{RST} Semua {len(videos)} video diamankan, Tuan Muda!")
             else: print("\n[!] Jarvis tidak nemu video.")
         else: print("\n[!] Metadata tidak ditemukan.")
     except Exception as e: print(f"\n[!] Kendala: {e}")
 
 def main():
+    import sys
+    global sys
     while True:
         banner()
         print(WHT + "===============================================")
