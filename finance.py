@@ -132,7 +132,7 @@ class CatatanKeuangan:
             except: print("Error!")
             input("\nEnter...")
 
-    # --- MENU 6 ---
+    # --- MENU 5 ---
     def evaluasi(self):
         self.banner()
         trx = self.data_master["transaksi"]
@@ -143,7 +143,7 @@ class CatatanKeuangan:
         print(f"{PUTIH}Evaluasi Pengeluaran Primer: Rp {primer:,.0f} ({persen:.1f}%)\nStatus: {HIJAU if persen <= 70 else MERAH}{'Wajar' if persen <= 70 else 'Bahaya/Boros'}{NORMAL}")
         input("\nEnter...")
 
-    # --- MENU 7 ---
+    # --- MENU 6 ---
     def catat_hutang(self):
         self.banner()
         try:
@@ -157,7 +157,7 @@ class CatatanKeuangan:
         except: print("Error!")
         input("\nEnter...")
 
-    # --- MENU 8 ---
+    # --- MENU 7 ---
     def pelunasan_hutang(self):
         self.banner()
         h_list = [h for h in self.data_master["hutang"] if h["status"] == "BELUM LUNAS"]
@@ -175,7 +175,7 @@ class CatatanKeuangan:
         except: print("Gagal!")
         input("\nEnter...")
 
-    # --- MENU 9 ---
+    # --- MENU 8 ---
     def data_hutang_lengkap(self):
         self.banner()
         print(f"{PUTIH}{'='*65}\n{'DATA HUTANG & PELUNASAN':^65}\n{'='*65}")
@@ -187,7 +187,7 @@ class CatatanKeuangan:
             print("-" * 65)
         input("\nEnter...")
 
-    # --- MENU 10: EDIT & HAPUS HUTANG ---
+    # --- MENU 9 ---
     def menu_perbaikan_hutang(self):
         while True:
             self.banner()
@@ -228,29 +228,30 @@ def main():
     jarvis = CatatanKeuangan()
     while True:
         jarvis.banner()
-        # Layout Menu yang Ditata Ulang (Tengah Balance)
-        print(f"{PUTIH} 1. Input Pemasukan             6. Evaluasi Keuangan")
-        print(f" 2. Input Pengeluaran            7. Catatan Hutang")
-        print(f" 3. Cek Saldo & Riwayat          8. Pelunasan Hutang")
-        print(f" 4. Edit & Hapus Data            9. Data Hutang & Pelunasan")
-        print(f" 5. Reset Database              10. Edit & Hapus Hutang")
-        print(f"\n{PUTIH}                11. Exit System{NORMAL}")
+        # Urutan Layout Menu Baru Sesuai Permintaan Tuan Muda
+        print(f"{PUTIH} 1. Input Pemasukan             6. Catatan Hutang")
+        print(f" 2. Input Pengeluaran            7. Pelunasan Hutang")
+        print(f" 3. Cek Saldo & Riwayat          8. Data Hutang & Pelunasan")
+        print(f" 4. Edit & Hapus Data            9. Edit & Hapus Hutang")
+        print(f" 5. Evaluasi keuangan           10. Reset Database")
+        print(f"\n{PUTIH}                [x] Exit System{NORMAL}")
         
         p = input(f"\n{HIJAU}Azzkury-ID{PUTIH} > ")
         if p == "1": jarvis.tambah_transaksi("Pemasukan")
         elif p == "2": jarvis.tambah_transaksi("Pengeluaran")
         elif p == "3": jarvis.tampilkan_total()
         elif p == "4": jarvis.menu_perbaikan()
-        elif p == "5":
+        elif p == "5": jarvis.evaluasi()
+        elif p == "6": jarvis.catat_hutang()
+        elif p == "7": jarvis.pelunasan_hutang()
+        elif p == "8": jarvis.data_hutang_lengkap()
+        elif p == "9": jarvis.menu_perbaikan_hutang()
+        elif p == "10":
             if input("Wipe Data? (y/n): ") == "y": jarvis.data_master = {"transaksi":[],"hutang":[]}; jarvis.save_data()
-        elif p == "6": jarvis.evaluasi()
-        elif p == "7": jarvis.catat_hutang()
-        elif p == "8": jarvis.pelunasan_hutang()
-        elif p == "9": jarvis.data_hutang_lengkap()
-        elif p == "10": jarvis.menu_perbaikan_hutang()
-        elif p == "11": 
+        elif p.lower() == "x": 
             jarvis.ketik(f"{HIJAU}[*] Shutdown Jarvis Financial System... Sampai jumpa Tuan Muda Azzkury.")
             break
 
 if __name__ == "__main__":
     main()
+
