@@ -96,7 +96,7 @@ read -p " Tentukan pilihanmu, Tuan Muda Azzkury: " opt
 
 case $opt in
   1) python ~/dldsosmed.py ;;
-  2) node ~/javanese.js ;;
+  2) node ~/javaweton.js ;;
   3) python ~/finance.py ;;
   x) echo -e "${W} Sistem Shutdown, back to manual terminal${N}" ;;
   *) echo -e "${R} Your prompt is anomali, sistem auto shutdown${N}" ;;
