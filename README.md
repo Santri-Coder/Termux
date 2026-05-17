@@ -9,6 +9,8 @@ $ git clone https://github.com/Santri-Coder/Termux
 
 $ cd Termux
 
+$ pkg install jq
+
 $ chmod +x install.sh
 
 $ ./install.sh
