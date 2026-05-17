@@ -22,3 +22,4 @@ $ cd Termux
 $ chmod +x install.sh
 
 $ ./install.sh
+
