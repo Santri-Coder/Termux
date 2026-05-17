@@ -65,8 +65,9 @@ echo -e " ╚══════════════════════�
 echo ""
 QUOTE_DATA=$(curl -sk --connect-timeout 3 "https://zenquotes.io/api/random")
 if [ $? -eq 0 ]; then
-    TEXT=$(echo $QUOTE_DATA | grep -oP '(?<="q":")[^"]*')
-    AUTHOR=$(echo $QUOTE_DATA | grep -oP '(?<="a":")[^"]*')
+    TEXT=$(echo "$QUOTE_DATA" | sed -E 's/.*"q":"([^"]*)".*/\1/')
+    AUTHOR=$(echo "$QUOTE_DATA" | sed -E 's/.*"a":"([^"]*)".*/\1/')
+
     echo -ne "${B}Jarvis:${W} "
     type_effect "Hello Sir! This motivation for you today.."
     echo -e "\n${Y}\"$TEXT\"${N}"
