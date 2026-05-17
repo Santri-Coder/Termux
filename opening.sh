@@ -92,7 +92,7 @@ case $opt in
   2) node ~/javanese.js ;;
   3) python ~/finance.py ;;
   x) echo -e "${W} Sistem Shutdown, back to manual terminal${N}" ;;
-  *) echo -e "${R} Your prompt is anomali, siste auto shutdown${N}" ;;
+  *) echo -e "${R} Your prompt is anomali, sistem auto shutdown${N}" ;;
 esac
 
 # -- PROMPT UTAMA TETAP AKTIF DI BAWAH --
