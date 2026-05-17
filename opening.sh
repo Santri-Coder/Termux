@@ -83,7 +83,7 @@ echo -e "${W}━━━━━━━━━━━━━━━━━━━━━━�
 echo -e "${G} [1]${W} Social Media Downloader"
 echo -e "${G} [2]${W} Knowledge of Javanese"
 echo -e "${G} [3]${W} Database Financial"
-echo -e "${G} [X]${W} Exit"
+echo -e "${G} [x]${W} Exit"
 echo ""
 read -p " Tentukan pilihanmu, Tuan Muda Azzkury: " opt
 
@@ -91,8 +91,8 @@ case $opt in
   1) python ~/dldsosmed.py ;;
   2) node ~/javanese.js ;;
   3) python ~/finance.py ;;
-  X) echo -e "${W} Sistem standby.${N}" ;;
-  *) echo -e "${R} Protokol tidak dikenal.${N}" ;;
+  x) echo -e "${W} Sistem Shutdown, back to manual terminal${N}" ;;
+  *) echo -e "${R} Your prompt is anomali, siste auto shutdown${N}" ;;
 esac
 
 # -- PROMPT UTAMA TETAP AKTIF DI BAWAH --
