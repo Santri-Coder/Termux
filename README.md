@@ -9,6 +9,8 @@ $ git clone https://github.com/Santri-Coder/Termux
 
 $ termux-setup-storage
 
+$ pkg install python
+
 $ pkg install ffmpeg
 
 $ pip install yt-dlp requests
