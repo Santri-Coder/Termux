@@ -57,7 +57,7 @@ echo -e "${W}      ▄▄███▄▄      █████  "
 
 echo -e "${W} ╔══════════════════════════════════════════╗"
 echo -ne " ║${B}"
-type_effect "              Welcome Back Sir             "
+type_effect "              Welcome Back Sir            "
 echo -e "${W}║"
 echo -e " ╚══════════════════════════════════════════╝"
 
