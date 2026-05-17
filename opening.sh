@@ -63,11 +63,14 @@ echo -e " ╚══════════════════════�
 
 # -- STAGE 5: QUOTES --
 echo ""
-QUOTE_DATA=$(curl -sk --connect-timeout 3 "https://zenquotes.io/api/random")
-if [ $? -eq 0 ]; then
-    TEXT=$(echo "$QUOTE_DATA" | sed -E 's/.*"q":"([^"]*)".*/\1/')
-    AUTHOR=$(echo "$QUOTE_DATA" | sed -E 's/.*"a":"([^"]*)".*/\1/')
+QUOTE_DATA=$(curl -sk --connect-timeout 5 "https://zenquotes.io/api/random")
 
+# Cek apakah data dari curl tidak kosong dan mengandung format JSON yang valid
+if echo "$QUOTE_DATA" | jq -e . >/dev/null 2>&1; then
+    # Ekstrak data menggunakan jq (sangat stabil dan akurat)
+    TEXT=$(echo "$QUOTE_DATA" | jq -r '.[0].q')
+    AUTHOR=$(echo "$QUOTE_DATA" | jq -r '.[0].a')
+    
     echo -ne "${B}Jarvis:${W} "
     type_effect "Hello Sir! This motivation for you today.."
     echo -e "\n${Y}\"$TEXT\"${N}"
@@ -75,8 +78,11 @@ if [ $? -eq 0 ]; then
 else
     echo -ne "${B}Jarvis:${W} "
     type_effect "Sorry Sir! Jarvis can't connecting to satelite..."
+    # Log tambahan buat Tuan ngecek eror aslinya apa
+    echo -e "\n${R}[DEBUG] Respon server kosong atau buntu${N}"
 fi
 echo -e "\n"
+
 
 # -- MENU TERKUNCI --
 echo -e "${B}I'm Jarvis 🤖 please say what do you want?${N}"
