@@ -12,9 +12,9 @@ sleep 1
 # 1. Memindahkan file pendukung ke folder home secara permanen
 echo -e "${G}[+] Menyalin script ke sistem lokal...${N}"
 cp opening.sh ~/opening.sh
-cp jarvisv3.py ~/dldsosmed.py
-cp dldsosmed.py ~/javaweton.js
-cp javanese.js ~/finance.py
+cp dldsosmed.py ~/dldsosmed.py
+cp javaweton.js ~/javaweton.js
+cp finance.py ~/finance.py
 
 # 2. Memberikan izin eksekusi
 chmod +x ~/opening.sh
