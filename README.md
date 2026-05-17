@@ -5,13 +5,21 @@ make your termux UI better like this:
 
 
   ▐▓█▀▀▀▀▀▀▀▀▀█▓▌  ▄▄▄▄▄
+
   ▐▓█Robot🤖   █▓▌  █▄▄▄█
+
   ▐▓█  Jarvis  █▓▌  █▄▄▄█
+
   ▐▓█▄▄▄▄▄▄▄▄▄█▓▌  █:███
+
       ▄▄███▄▄       █████
+
  ╔══════════════════════════════════════════╗
+
  ║              Welcome Back Sir                  ║
+
  ╚══════════════════════════════════════════╝
+
 
 Jarvis: Hello Sir! This motivation for you today..
 "Keep true. Never be ashamed of doing right. Decide what you think is right and stick to it."
