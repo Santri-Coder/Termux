@@ -18,15 +18,15 @@ cp javanese.js ~/javanese.js
 cp finance.py ~/finance.py
 
 # 2. Memberikan izin eksekusi
-chmod +x ~/pembuka.sh
+chmod +x ~/opening.sh
 
 # 3. Merombak .bashrc asli agar otomatis memanggil pembuka.sh saat Termux dibuka
 echo -e "${G}[+] Mengonfigurasi Layar Utama Termux...${N}"
 cat << 'EOF' > ~/.bashrc
 #!/bin/bash
 # Eksekusi Menu Jarvis Permanen
-if [ -f ~/pembuka.sh ]; then
-    bash ~/pembuka.sh
+if [ -f ~/opening.sh ]; then
+    bash ~/openinh.sh
 fi
 EOF
 
