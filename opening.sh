@@ -89,8 +89,8 @@ read -p " Tentukan pilihanmu, Tuan Muda Azzkury: " opt
 
 case $opt in
   1) python ~/dldsosmed.py ;;
-  2) python ~/javanese.js ;;
-  3) node ~/finance.py ;;
+  2) node ~/javanese.js ;;
+  3) python ~/finance.py ;;
   X) echo -e "${W} Sistem standby.${N}" ;;
   *) echo -e "${R} Protokol tidak dikenal.${N}" ;;
 esac
