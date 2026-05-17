@@ -79,7 +79,7 @@ else
     echo -ne "${B}Jarvis:${W} "
     type_effect "Sorry Sir! Jarvis can't connecting to satelite..."
     # Log tambahan buat Tuan ngecek eror aslinya apa
-    echo -e "\n${R}[DEBUG] Respon server kosong atau buntu${N}"
+    echo -e "\n${R}[DEBUG] Loss connection, can't grab motivation from server${N}"
 fi
 echo -e "\n"
 
