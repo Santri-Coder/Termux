@@ -25,7 +25,7 @@ cat << 'EOF' > ~/.bashrc
 #!/bin/bash
 # Eksekusi Menu Jarvis Permanen
 if [ -f ~/opening.sh ]; then
-    bash ~/openinh.sh
+    bash ~/opening.sh
 fi
 EOF
 
