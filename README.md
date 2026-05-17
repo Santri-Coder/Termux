@@ -7,9 +7,11 @@ how to install?
 
 $ git clone https://github.com/Santri-Coder/Termux
 
-$ cd Termux
-
 $ pkg install jq
+
+$ pkg install nodejs
+
+$ cd Termux
 
 $ chmod +x install.sh
 
